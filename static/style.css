@@ -1,0 +1,238 @@
+:root {
+    --bg: #eef2f7;
+    --card: #ffffff;
+    --text: #1f2933;
+    --muted: #64748b;
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --border: #d6dee8;
+    --error: #dc2626;
+    --error-bg: #fef2f2;
+    --success-bg: #eff6ff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 40px 16px;
+    background: linear-gradient(160deg, #e8eefb 0%, var(--bg) 60%);
+    color: var(--text);
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+}
+
+.page {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.page__header {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.page__header h1 {
+    margin: 0 0 8px;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+}
+
+.page__subtitle {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.card {
+    padding: 32px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 18px 45px rgba(31, 41, 51, 0.08);
+}
+
+.field {
+    margin-bottom: 18px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.field input[type="text"],
+.field input[type="number"],
+.field select {
+    width: 100%;
+    padding: 11px 13px;
+    font-size: 15px;
+    color: var(--text);
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.field input:focus,
+.field select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.field--invalid input,
+.field--invalid select {
+    border-color: var(--error);
+    background: var(--error-bg);
+}
+
+.field--checkbox {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.field--checkbox label {
+    order: 2;
+    margin: 0;
+    font-weight: 500;
+}
+
+.field--checkbox input {
+    order: 1;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+}
+
+.field--checkbox .field__error,
+.field--checkbox .field__help {
+    order: 3;
+    flex-basis: 100%;
+}
+
+.field__help {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.field__error {
+    margin: 6px 0 0;
+    color: var(--error);
+    font-size: 13px;
+}
+
+.alert {
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    border-radius: 9px;
+    font-size: 14px;
+}
+
+.alert--error {
+    color: var(--error);
+    background: var(--error-bg);
+    border: 1px solid #fecaca;
+}
+
+.button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 13px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.05s;
+}
+
+.button:hover {
+    background: var(--accent-dark);
+}
+
+.button:active {
+    transform: translateY(1px);
+}
+
+.result {
+    margin-top: 28px;
+    padding: 24px;
+    background: var(--success-bg);
+    border: 1px solid #bfdbfe;
+    border-radius: 14px;
+}
+
+.result h2 {
+    margin: 0 0 16px;
+    font-size: 20px;
+}
+
+.result__list {
+    margin: 0;
+}
+
+.result__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 7px 0;
+    border-bottom: 1px dashed #cbd5e1;
+    font-size: 14px;
+}
+
+.result__row dt {
+    color: var(--muted);
+}
+
+.result__row dd {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+}
+
+.result__row--discount dd {
+    color: #16a34a;
+}
+
+.result__total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin: 18px 0 0;
+    padding-top: 16px;
+    border-top: 2px solid #bfdbfe;
+    font-size: 18px;
+}
+
+.result__total strong {
+    color: var(--accent-dark);
+    font-size: 28px;
+    font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 520px) {
+    body {
+        padding: 20px 12px;
+    }
+
+    .card {
+        padding: 22px;
+    }
+
+    .page__header h1 {
+        font-size: 26px;
+    }
+}

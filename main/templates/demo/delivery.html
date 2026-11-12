@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор доставки</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+<div class="page">
+    <header class="page__header">
+        <h1>Калькулятор доставки</h1>
+        <p class="page__subtitle">
+            Базовая ставка 300 ₽ + 30 ₽ за каждый кг. Наценка: стандарт ×1.0,
+            экспресс ×1.5, в день заказа ×2.0.
+        </p>
+    </header>
+
+    <main class="card">
+        <form method="post" novalidate class="form">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="alert alert--error">
+                    {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+                </div>
+            {% endif %}
+
+            {% for field in form %}
+                <div class="field{% if field.errors %} field--invalid{% endif %}{% if field.field.widget.input_type == 'checkbox' %} field--checkbox{% endif %}">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                        <p class="field__help">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p class="field__error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="button">Рассчитать стоимость</button>
+        </form>
+
+        {% if result %}
+            <section class="result" aria-live="polite">
+                <h2>Результат расчёта</h2>
+                <dl class="result__list">
+                    <div class="result__row">
+                        <dt>Базовая ставка</dt>
+                        <dd>{{ result.base_rate }} ₽</dd>
+                    </div>
+                    <div class="result__row">
+                        <dt>Вес посылки</dt>
+                        <dd>{{ result.weight }} кг</dd>
+                    </div>
+                    <div class="result__row">
+                        <dt>Надбавка за вес (30 ₽ × кг)</dt>
+                        <dd>{{ result.weight_extra }} ₽</dd>
+                    </div>
+                    <div class="result__row">
+                        <dt>Коэффициент типа доставки</dt>
+                        <dd>×{{ result.coefficient }}</dd>
+                    </div>
+                    <div class="result__row">
+                        <dt>Стоимость до скидки</dt>
+                        <dd>{{ result.before_discount }} ₽</dd>
+                    </div>
+                    {% if result.promo_code %}
+                        <div class="result__row result__row--discount">
+                            <dt>Промокод {{ result.promo_code }} (−{{ result.discount_percent }}%)</dt>
+                            <dd>−{{ result.discount_amount }} ₽</dd>
+                        </div>
+                    {% endif %}
+                </dl>
+                <p class="result__total">
+                    <span>Итого к оплате</span>
+                    <strong>{{ result.total }} ₽</strong>
+                </p>
+            </section>
+        {% endif %}
+    </main>
+</div>
+</body>
+</html>
